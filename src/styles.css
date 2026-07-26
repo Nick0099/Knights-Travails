@@ -1,7 +1,127 @@
+:root {
+  --bg: #12141c;
+  --panel: #1b1e2b;
+  --accent: #6c8cff;
+  --accent-hover: #8aa4ff;
+  --text: #e8e9ee;
+  --text-dim: #9aa0b4;
+}
+
+body{
+    height:100dvh;
+    width: 100dvw;
+    margin: 0;
+    background-color: var(--bg);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    color: var(--text);
+}
+
 header{
-    background-color: black;
-    width: 100%;
-    border-radius: 10px;
+    background-color: var(--panel);
     color:white;
     text-align: center;
+    padding: 20px 1%;
+    letter-spacing: 1px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+header h1 {
+    margin: 0;
+    font-weight: 600;
+    background: linear-gradient(90deg, var(--accent), #b3c2ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+#content{
+    height: calc(100dvh - 130px);
+    display: flex;
+    align-items: stretch;
+    gap:0px;
+}
+aside{
+    width:220px;
+    flex-shrink:0;
+    display: flex;
+    align-items: center;      /* vertical centering */
+    justify-content: center;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 24px 12px;
+  width: 100%;
+  background-color: var(--panel);
+  height: 100%;              /* keep full height so background still fills aside */
+  overflow: auto;
+  box-sizing: border-box;
+  border-right: 1px solid rgba(255,255,255,0.06);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;   /* centers the <li> items vertically inside ul */
+}
+li {
+  margin-bottom: 12px;
+}
+
+button{
+    border-radius: 8px;
+    border: none;
+    width:100%;
+    padding: 12px 10px;
+    color: white;
+    background-color: rgba(255,255,255,0.06);
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+button:hover{
+    background-color: var(--accent);
+    transform: translateY(-1px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+#start {
+    background-color: var(--accent);
+}
+#start:hover {
+    background-color: var(--accent-hover);
+}
+
+main{
+    background-color: var(--bg);
+    flex-grow: 1;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 1.1rem;
+}
+
+a{
+    color: var(--accent);
+    text-decoration: none;
+}
+a:hover{
+    color: var(--accent-hover);
+    text-decoration: underline;
+}
+
+footer{
+    background-color: var(--panel);
+    color: var(--text-dim);
+    text-align: center;
+    padding: 14px 1%;
+    font-size: 0.85rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
 }
