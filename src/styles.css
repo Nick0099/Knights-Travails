@@ -91,9 +91,6 @@ button:active {
   transform: translateY(0);
 }
 
-#start {
-  background-color: var(--accent);
-}
 #start:hover {
   background-color: var(--accent-hover);
 }
@@ -144,9 +141,21 @@ footer {
   height: 100%;
   width: 100%;
 }
-.white{
-    background-color: white;
+.white {
+  background-color: white;
 }
-.black{
-    background-color: black;
+.black {
+  background-color: black;
+}
+.select.white {
+  background-image: url('../src/img/black_knight.png');
+  background-size: 70%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.select.black {
+  background-image: url('../src/img/white_knight.png');
+  background-size: 70%;
+  background-repeat: no-repeat;
+  background-position: center;
 }
