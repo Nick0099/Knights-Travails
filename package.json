@@ -1,0 +1,33 @@
+{
+  "name": "knight",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000K\u0000n\u0000i\u0000g\u0000h\u0000t\u0000s\u0000-\u0000T\u0000r\u0000a\u0000v\u0000a\u0000i\u0000l\u0000s\u0000\r\u0000 \u0000",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --config prod.config.js",
+    "test": "jest",
+    "start": "webpack serve --mode development"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nick0099/Knights-Travails.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/Nick0099/Knights-Travails/issues"
+  },
+  "homepage": "https://github.com/Nick0099/Knights-Travails#readme",
+  "devDependencies": {
+    "css-loader": "^7.1.4",
+    "html-webpack-plugin": "^5.6.8",
+    "jest": "^30.4.2",
+    "mini-css-extract-plugin": "^2.10.2",
+    "style-loader": "^4.0.0",
+    "webpack": "^5.109.0",
+    "webpack-cli": "^7.2.1",
+    "webpack-dev-server": "^6.0.0"
+  }
+}
