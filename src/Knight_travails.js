@@ -24,9 +24,9 @@ const Graph = (initial = [], final = []) => {
         break;
       case (4):
         temp = [temp[0] + ((-1) ** pwr) * 1, temp[1] + 2];
-        pwr++;
         break;
     default:
+        
         break;
     }
     temp_steps.push([]); //  nests a new array in teporary steps
