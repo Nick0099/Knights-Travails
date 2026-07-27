@@ -8,7 +8,7 @@ const Graph = (initial = [], final = []) => {
   let temp = [x, y];
   let pwr = 1;
   while (temp[0] !== xx || temp[1] !== yy) {
-    if ((temp = temp_steps.includes(temp))) return (temp_steps.length = 0);
+    if ((temp_steps.includes(temp)) == true) return (temp_steps.length = 0);
     switch (pwr) {
       case (1):
         temp = [temp[0] + 2, temp[1] + ((-1) ** pwr) * 2];
@@ -26,6 +26,8 @@ const Graph = (initial = [], final = []) => {
         temp = [temp[0] + ((-1) ** pwr) * 1, temp[1] + 2];
         pwr++;
         break;
+    default:
+        break;
     }
     temp_steps.push([]); //  nests a new array in teporary steps
     temp_steps[0].push(temp); //adds the step in the newly created array
@@ -34,7 +36,7 @@ const Graph = (initial = [], final = []) => {
   return s_steps;
 };
 
-console.log(Graph([2, 4], [9, 2]));
+console.log(Graph([2, 4], [8, 2]));
 /*
 movement calculations
 
