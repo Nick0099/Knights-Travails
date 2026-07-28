@@ -8,6 +8,7 @@ const Graph = (initial = [], final = []) => {
   let temp = [x, y];
   let pwr = 1;
   while (temp[0] !== xx || temp[1] !== yy) {
+    //DFS APPROACH
     if ((temp_steps.includes(temp)) == true) return (temp_steps.length = 0);
     switch (pwr) {
       case (1):
