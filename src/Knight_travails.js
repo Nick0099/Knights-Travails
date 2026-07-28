@@ -1,43 +1,59 @@
-const Graph = (initial = [], final = []) => {
-  let x = initial[0];
-  let y = initial[1];
-  let xx = final[0];
-  let yy = final[1];
-  let s_steps = [];
-  let temp_steps =[];
-  let temp = [x, y];
-  let pwr = 1;
-  while (temp[0] !== xx || temp[1] !== yy) {
-    //DFS APPROACH
-    if ((temp_steps.includes(temp)) == true) return (temp_steps.length = 0);
-    switch (pwr) {
-      case (1):
-        temp = [temp[0] + 2, temp[1] + ((-1) ** pwr) * 2];
-        pwr++;
-        break;
-      case (2):
-        temp = [temp[0] - 2, temp[1] + ((-1) ** pwr) * 2];
-        pwr++;
-        break;
-      case (3):
-        temp = [temp[0] + ((-1) ** pwr) * 1, temp[1] + 2];
-        pwr++;
-        break;
-      case (4):
-        temp = [temp[0] + ((-1) ** pwr) * 1, temp[1] + 2];
-        break;
-    default:
-        
-        break;
+/*
+const knightMoves = (initial = [], final = []) => {
+  let temp = [initial[0], initial[1]];
+  let steps = [];
+  while (temp[0] == final[0] && temp[1] == final[1]) {
+    for (let i = 1; i >= 6; i++) {
+      for (let j = 1; j >= 8 ** i; j++) {
+        if (temp[0] <= 8 && temp[1] <= 8) {
+          switch (j) {
+            case 1:
+              temp = [temp[0] + 2, temp[1] + 2];
+              break;
+            case 2:
+              temp = [temp[0] + 2, temp[1] - 2];
+              break;
+            case 3:
+              temp = [temp[0] - 2, temp[1] + 2];
+              break;
+            case 4:
+              temp = [temp[0] - 2, temp[1] - 2];
+              break;
+            case 5:
+              temp = [temp[0] - 1, temp[1] + 2];
+              break;
+            case 6:
+              temp = [temp[0] + 1, temp[1] + 2];
+              break;
+            case 7:
+              temp = [temp[0] - 1, temp[1] - 2];
+              break;
+            case 8:
+              temp = [temp[0] + 1, temp[1] - 2];
+              break;
+          }
+          temp_steps.push([]);
+          temp_steps[0].push(temp);
+        }
+      }
     }
-    temp_steps.push([]); //  nests a new array in teporary steps
-    temp_steps[0].push(temp); //adds the step in the newly created array
   }
-  if(temp_steps.length < s_steps.length) temp_steps = s_steps;
-  return s_steps;
 };
-
-console.log(Graph([2, 4], [8, 2]));
+ 
+  the above function serially inputs the steps
+  for eg initial is [5,4] and final is [6,2] then the steps will look like
+  [[5,4],[4,6],[].....,[6,2]]
+  the factor variable will find the exact multiple of the variable
+    
+const shoresttPath = (arr, final) => {
+  let factor = arr.indexof(final) - 1;
+  let final_steps = []
+  for(let i = 1; i >= factor;i++){
+    final_steps.push([]);
+    final_steps[0].push(arr[factor * i]);
+  }
+};
+console.log(knightMoves([2, 4], [8, 2]));
 /*
 movement calculations
 
