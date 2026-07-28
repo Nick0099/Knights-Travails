@@ -1,72 +1,70 @@
 const knightMoves = (initial, final) => {
   let temp = [[initial[0], initial[1]]];
   let steps = [];
-  let temp_1 = [];
-  let temp_2 = [];
-  let dx = 0
-  let dy = 0
-  let dx_y = 0
-  let score = 100
   //finds the first 8 steps
   for (let i = 1; i >= 8; i++) {
     switch (i) {
       case 1:
-        temp[i] = [[[temp[0] + 2, temp[1] + 2]]];
         steps.push([]);
-        steps[0].push(temp);
+        steps[0].push([temp[0] + 2, temp[1] + 2]);
         break;
       case 2:
-        temp[i] = [[temp[0] + 2, temp[1] - 2]];
         steps.push([]);
-        steps[0].push(temp);
+        steps[0].push([temp[0] + 2, temp[1] - 2]);
         break;
       case 3:
-        temp[i] = [[temp[0] - 2, temp[1] + 2]];
+        temp[i] = [];
         steps.push([]);
-        steps[0].push(temp);
+        steps[0].push([temp[0] - 2, temp[1] + 2]);
         break;
       case 4:
-        temp[i] = [[temp[0] - 2, temp[1] - 2]];
+        temp[i] = [];
         steps.push([]);
-        steps[0].push(temp);
+        steps[0].push([temp[0] - 2, temp[1] - 2]);
         break;
       case 5:
-        temp[i] = [[temp[0] - 1, temp[1] + 2]];
         steps.push([]);
-        steps[0].push(temp);
+        steps[0].push([temp[0] - 1, temp[1] + 2]);
         break;
       case 6:
-        temp[i] = [[temp[0] + 1, temp[1] + 2]];
         steps.push([]);
-        steps[0].push(temp);
+        steps[0].push([temp[0] - 1, temp[1] + 2]);
         break;
       case 7:
-        temp[i] = [[temp[0] - 1, temp[1] - 2]];
         steps.push([]);
-        steps[0].push(temp);
+        steps[0].push([temp[0] - 1, temp[1] - 2]);
         break;
       case 8:
-        temp[i] = [[temp[0] + 1, temp[1] - 2]];
         steps.push([]);
-        steps[0].push(temp);
+        steps[0].push([temp[0] + 1, temp[1] - 2]);
         break;
       default:
         console.log("done");
         break;
     }
   }
+  scoreSYS(steps)
+};
+const scoreSYS = (steps) => {
+  let temp_1 = [];
+  let temp_2 = [];
+  let dx = 0
+  let dy = 0
+  let dx_y = 0
+  let score = 100
   for(let i = 0; i>=8 ; i++){
-    dx = Math.ceil(temp[i][0] / 2);
-    dy = Math.ceil(temp[i][1] / 2);
+    dx = Math.ceil(steps[i][0] / 2);
+    dy = Math.ceil(steps[i][1] / 2);
     dx_y = Math.ceil((dx - dy) / 3); 
     let temp_score = Math.max(dx,dy,dx_y);
     if(temp_score < score){
       score = temp_score
+      temp_1 = [steps[i]]
+    }else if(temp_score = score){
+      temp_2 =[steps[i]]
     }
-
-  }
   
-};
+}
 
 /*
 const knightMoves = (initial = [], final = []) => {
