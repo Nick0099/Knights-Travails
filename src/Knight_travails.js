@@ -1,91 +1,64 @@
-const knightMoves = (initial, final) => {
-  let temp = [[initial[0], initial[1]]];
+const knightMoves = (initial, final, path = [initial]) => {
+  const [a, b] = initial; // inital coordinates
+  const [x, y] = final; // final coordinantes
   let steps = [];
-  //finds the first 8 steps
-  while (temp[0] != final[0] && temp[1] != final[1]) {
-    for (let i = 1; i <= 8; i++) {
-      switch (i) {
-        case 1:
-          if (temp[0] + 2 <= 8 || temp[1] + 2 <= 8) {
-            steps.push([]);
-            steps[0].push([temp[0] + 2, temp[1] + 2]);
-          }
-          break;
-        case 2:
-          if (temp[0] + 2 <= 8 || temp[1] - 2 <= 8) {
-            steps.push([]);
-            steps[0].push([temp[0] + 2, temp[1] - 2]);
-          }
-          break;
-        case 3:
-          if (temp[0] - 2 <= 8 || temp[1] + 2 <= 8) {
-            temp[i] = [];
-            steps.push([]);
-            steps[0].push([temp[0] - 2, temp[1] + 2]);
-          }
-          break;
-        case 4:
-          if (temp[0] - 2 <= 8 || temp[1] - 2 <= 8) {
-            temp[i] = [];
-            steps.push([]);
-            steps[0].push([temp[0] - 2, temp[1] - 2]);
-          }
-          break;
-        case 5:
-          if (temp[0] - 1 <= 8 || temp[1] + 2 <= 8) {
-            steps.push([]);
-            steps[0].push([temp[0] - 1, temp[1] + 2]);
-          }
-          break;
-        case 6:
-          steps.push([]);
-          if (temp[0] - 1 <= 8 || temp[1] + 2 <= 8) {
-            steps[0].push([temp[0] - 1, temp[1] + 2]);
-          }
-          break;
-        case 7:
-          if (temp[0] - 1 <= 8 || temp[1] - 2 <= 8) {
-            steps.push([]);
-            steps[0].push([temp[0] - 1, temp[1] - 2]);
-          }
-          break;
-        case 8:
-          if (temp[0] + 1 <= 8 || temp[1] - 2 <= 8) {
-            steps.push([]);
-            steps[0].push([temp[0] + 1, temp[1] - 2]);
-          }
-          break;
-        default:
-          console.log("done");
-          break;
-      }
-    }
-    scoreSYS(steps, final); // gives the above calculated steps to the function to find out which has the shortest distance to the final destination
-  }
-};
-const scoreSYS = (steps, final) => {
-  let temp_1 = [];
-  let temp_2 = [];
-  let dx = 0;
-  let dy = 0;
-  let dx_y = 0;
-  let score = 100;
-  for (let i = 0; i >= 8; i++) {
-    dx = Math.ceil((steps[i][0] - final[0]) / 2);
-    dy = Math.ceil((steps[i][1] - final[0]) / 2);
-    dx_y = Math.ceil((dx + dy) / 3);
-    let temp_score = Math.max(dx, dy, dx_y);
-    if (temp_score < score) {
-      score = temp_score;
-      temp_1 = [steps[i]];
-    } else if ((temp_score = score)) {
-      temp_2 = [steps[i]];
-    }
-  }
-  knightMoves(temp_1,final)
-  knightMoves(temp_2,final)
-};
+  let moves = [
+    //this part is same as the switch...case but cleaner
+    [2, 2],
+    [2, -2],
+    [-2, 2],
+    [-2, -2],
+    [1, 2],
+    [1, -2],
+    [-1, 2],
+    [-1, -2],
+  ];
 
+  // this does the same thing as switch case but efficiently  and cleanly
+
+  for (const [dx, dy] of moves) {
+    let new_x = a + dx;
+    let new_y = b + dy;
+    if (new_x >= 1 && new_y >= 1 && new_x <= 8 && new_y <= 8) {
+      steps.push([new_x, new_y]);
+    }
+  }
+
+  // checks if it has reached the end or not
+
+  if (a == x && b == y) {
+    console.log("done");
+    return path;
+  }
+
+  /* 
+  gives the above calculated steps 
+  to the function to find out which 
+  has the shortest distance to the final destination
+  */
+  scoreSYS(steps, final, path);
+};
+const scoreSYS = (steps, final, path) => {
+  const [x, y] = final;
+  const best = null;
+  // it is set to hunder to make it instantly change to the new score initially
+  const BestScore = 100;
+  /*
+  calculates  the best score with the same idea but with better implementation 
+  */
+  for (const [step_x, step_y] of steps) {
+    const dx = Math.abs(step_x - x);
+    const dy = Math.abs(step_y - y);
+    const score = Math.max(dx, dy);
+    if (score < BestScore) {
+      BestScore = score;
+      best = [step_x, step_y];
+    }
+  }
+
+  return knightMoves(best, final, [...path, best]);
+};
+console.log(knightMoves([2, 4], [8, 2]));
 /*
 const knightMoves = (initial = [], final = []) => {
   let temp = [initial[0], initial[1]];
