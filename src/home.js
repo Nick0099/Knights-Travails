@@ -1,5 +1,6 @@
 import toastr from "toastr";
 import "toastr/build/toastr.min.css";
+import knightMoves from "./Knight_travails";
 
 const loadHome = () => {
   const content = document.getElementById("content");

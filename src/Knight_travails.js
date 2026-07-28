@@ -28,7 +28,6 @@ const knightMoves = (initial, final, path = [initial]) => {
 
   if (a == x && b == y) {
     console.log("done");
-    console.log(path);
     return path;
   }
 
@@ -60,6 +59,8 @@ const scoreSYS = (steps, final, path) => {
   return knightMoves(best, final, [...path, best]);
 };
 console.log(knightMoves([2, 4], [8, 2]));
+
+export default knightMoves;
 /*
 movement calculations
 
