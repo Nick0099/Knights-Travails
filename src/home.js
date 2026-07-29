@@ -58,23 +58,32 @@ const loadHome = () => {
     if (count == 0) {
       toastr.error('Click "Start" to start the game');
     } else if (count == 1) {
-      if (startingCell.length >= 1) {
-        startingCell.forEach((c) => c.classList.remove("select"));
+      if (startingCell.length >= 2) {
+        const strt = document.querySelector(
+          `[data-row="${startingCell[0]}"][data-col="${startingCell[1]}"]`,
+        );
+        strt.classList.remove("select");
         startingCell = [];
       }
       cell.classList.add("select");
-      startingCell.push(cell.dataset.row,cell.dataset.col);
+      startingCell.push(parseInt(cell.dataset.row), parseInt(cell.dataset.col));
     } else if (count == 2) {
-      if (cell.classList.contains) {
+      if (startingCell[0]) {
         toastr.error("Choose unoccupied cell");
       }
-      if (destinationCell.length >= 1) {
-        destinationCell.forEach((c) => c.classList.remove("destination"));
+      if (destinationCell.length >= 2) {
+        const end = document.querySelector(
+          `[data-row="${destinationCell[0]}"][data-col="${destinationCell[1]}"]`,
+        );
+        end.classList.remove("destination");
         destinationCell = [];
       }
       cell.classList.add("destination");
-      destinationCell.push(cell.dataset.row,cell.dataset.col);
-      
+      destinationCell.push(
+        parseInt(cell.dataset.row),
+        parseInt(cell.dataset.col),
+      );
+      console.log(startingCell, destinationCell);
     }
   };
 
