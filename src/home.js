@@ -68,22 +68,25 @@ const loadHome = () => {
       cell.classList.add("select");
       startingCell.push(parseInt(cell.dataset.row), parseInt(cell.dataset.col));
     } else if (count == 2) {
-      if (startingCell[0]) {
+      if (
+        startingCell[0] == parseInt(cell.dataset.row) &&
+        startingCell[1] == parseInt(cell.dataset.col)
+      ) {
         toastr.error("Choose unoccupied cell");
-      }
-      if (destinationCell.length >= 2) {
-        const end = document.querySelector(
-          `[data-row="${destinationCell[0]}"][data-col="${destinationCell[1]}"]`,
+      } else {
+        if (destinationCell.length >= 2) {
+          const end = document.querySelector(
+            `[data-row="${destinationCell[0]}"][data-col="${destinationCell[1]}"]`,
+          );
+          end.classList.remove("destination");
+          destinationCell = [];
+        }
+        cell.classList.add("destination");
+        destinationCell.push(
+          parseInt(cell.dataset.row),
+          parseInt(cell.dataset.col),
         );
-        end.classList.remove("destination");
-        destinationCell = [];
       }
-      cell.classList.add("destination");
-      destinationCell.push(
-        parseInt(cell.dataset.row),
-        parseInt(cell.dataset.col),
-      );
-      console.log(startingCell, destinationCell);
     }
   };
 
@@ -115,6 +118,8 @@ const loadHome = () => {
   });
 
   createGrid();
+  knightMoves(startingCell,destinationCell)
 };
+
 
 export default loadHome;
