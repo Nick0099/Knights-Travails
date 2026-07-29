@@ -49,29 +49,28 @@ const loadHome = () => {
     toastr.info("Click on any one of the squares to place the knight");
     count = 1;
   });
-  destination.addEventListener("click",() =>{
+  destination.addEventListener("click", () => {
     toastr.info("Click on any one of the squares to select the destination");
     count = 2;
-  })
+  });
 
   const handleCellClick = (cell) => {
-    if (count == 1) {
+   if(count == 0){
+    toastr.alert('Click "Start" to start the game' );
+   }else if (count == 1) {
       if (startingCell.length >= 1) {
         startingCell.forEach((c) => c.classList.remove("select"));
         startingCell = [];
       }
       cell.classList.add("select");
       startingCell.push(cell);
-    }
-    if(count == 2){
+    }else if (count == 2) {
       if (destinationCell.length >= 1) {
-        destinationCell.forEach((c) => c.classList.remove("select"));
+        destinationCell.forEach((c) => c.classList.remove("destination"));
         destinationCell = [];
       }
       cell.classList.add("destination");
       destinationCell.push(cell);
-    
-
     }
   };
 
@@ -97,6 +96,7 @@ const loadHome = () => {
   clear.addEventListener("click", () => {
     document.querySelectorAll(".grid-cell").forEach((cell) => {
       cell.classList.remove("select");
+      cell.classList.remove("destination");
     });
     startingCell = [];
   });

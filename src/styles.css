@@ -159,3 +159,7 @@ footer {
   background-repeat: no-repeat;
   background-position: center;
 }
+.destination{
+  background-color: red;
+  opacity: 0.5;
+}
