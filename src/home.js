@@ -42,22 +42,37 @@ const loadHome = () => {
     showMethod: "fadeIn",
     hideMethod: "fadeOut",
   };
+  let count = 0;
+  let startingCell = [];
+  let destinationCell = [];
+  start.addEventListener("click", () => {
+    toastr.info("Click on any one of the squares to place the knight");
+    count = 1;
+  });
+  destination.addEventListener("click",() =>{
+    toastr.info("Click on any one of the squares to select the destination");
+    count = 2;
+  })
 
-  let selectedCells = [];
-  const strt = (cell) => {
-    start.addEventListener("click", () => {
-      toastr.info("Click on any one of the squares to place the knight");
+  const handleCellClick = (cell) => {
+    if (count == 1) {
+      if (startingCell.length >= 1) {
+        startingCell.forEach((c) => c.classList.remove("select"));
+        startingCell = [];
+      }
+      cell.classList.add("select");
+      startingCell.push(cell);
+    }
+    if(count == 2){
+      if (destinationCell.length >= 1) {
+        destinationCell.forEach((c) => c.classList.remove("select"));
+        destinationCell = [];
+      }
+      cell.classList.add("destination");
+      destinationCell.push(cell);
+    
 
-      const handleCellClick = (cell) => {
-        if (selectedCells.length >= 1) {
-          selectedCells.forEach((c) => c.classList.remove("select"));
-          selectedCells = [];
-        }
-        cell.classList.add("select");
-        selectedCells.push(cell);
-      };
-      handleCellClick(cell)
-    });
+    }
   };
 
   const createGrid = () => {
@@ -72,7 +87,7 @@ const loadHome = () => {
         cell.dataset.row = row;
         cell.dataset.col = col;
 
-        cell.addEventListener("click", () => strt(cell));
+        cell.addEventListener("click", () => handleCellClick(cell));
 
         container.appendChild(cell);
       }
@@ -83,7 +98,7 @@ const loadHome = () => {
     document.querySelectorAll(".grid-cell").forEach((cell) => {
       cell.classList.remove("select");
     });
-    selectedCells = [];
+    startingCell = [];
   });
 
   createGrid();
