@@ -55,22 +55,26 @@ const loadHome = () => {
   });
 
   const handleCellClick = (cell) => {
-   if(count == 0){
-    toastr.alert('Click "Start" to start the game' );
-   }else if (count == 1) {
+    if (count == 0) {
+      toastr.error('Click "Start" to start the game');
+    } else if (count == 1) {
       if (startingCell.length >= 1) {
         startingCell.forEach((c) => c.classList.remove("select"));
         startingCell = [];
       }
       cell.classList.add("select");
-      startingCell.push(cell);
-    }else if (count == 2) {
+      startingCell.push(cell.dataset.row,cell.dataset.col);
+    } else if (count == 2) {
+      if (cell.classList.contains) {
+        toastr.error("Choose unoccupied cell");
+      }
       if (destinationCell.length >= 1) {
         destinationCell.forEach((c) => c.classList.remove("destination"));
         destinationCell = [];
       }
       cell.classList.add("destination");
-      destinationCell.push(cell);
+      destinationCell.push(cell.dataset.row,cell.dataset.col);
+      
     }
   };
 
