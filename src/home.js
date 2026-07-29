@@ -1,6 +1,6 @@
 import toastr from "toastr";
 import "toastr/build/toastr.min.css";
-import knightMoves from "./Knight_travails";
+import knightMoves from "./Knight_travails.js";
 
 const loadHome = () => {
   const content = document.getElementById("content");
@@ -43,19 +43,21 @@ const loadHome = () => {
     hideMethod: "fadeOut",
   };
 
-  start.addEventListener("click", () => {
-    toastr.info("Click on any one of the squares to place the knight");
-  });
-
   let selectedCells = [];
+  const strt = (cell) => {
+    start.addEventListener("click", () => {
+      toastr.info("Click on any one of the squares to place the knight");
 
-  const handleCellClick = (cell) => {
-    if (selectedCells.length >= 1) {
-      selectedCells.forEach((c) => c.classList.remove("select"));
-      selectedCells = [];
-    }
-    cell.classList.add("select");
-    selectedCells.push(cell);
+      const handleCellClick = (cell) => {
+        if (selectedCells.length >= 1) {
+          selectedCells.forEach((c) => c.classList.remove("select"));
+          selectedCells = [];
+        }
+        cell.classList.add("select");
+        selectedCells.push(cell);
+      };
+      handleCellClick(cell)
+    });
   };
 
   const createGrid = () => {
@@ -70,7 +72,7 @@ const loadHome = () => {
         cell.dataset.row = row;
         cell.dataset.col = col;
 
-        cell.addEventListener("click", () => handleCellClick(cell));
+        cell.addEventListener("click", () => strt(cell));
 
         container.appendChild(cell);
       }
