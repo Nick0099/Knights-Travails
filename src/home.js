@@ -4,7 +4,6 @@ import knightMoves from "./Knight_travails.js";
 
 const loadHome = () => {
   const content = document.getElementById("content");
-
   content.innerHTML = `
     <aside>
       <ul>
@@ -119,9 +118,11 @@ const loadHome = () => {
 
   createGrid();
   travel.addEventListener("click",() =>{
-    knightMoves(startingCell,destinationCell)
-
+   moves =[knightMoves(startingCell,destinationCell)]
   })
+  const movement= () =>{
+    
+  }
 };
 
 
