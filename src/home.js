@@ -118,7 +118,10 @@ const loadHome = () => {
   });
 
   createGrid();
-  knightMoves(startingCell,destinationCell)
+  travel.addEventListener("click",() =>{
+    knightMoves(startingCell,destinationCell)
+
+  })
 };
 
 
