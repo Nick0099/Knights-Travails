@@ -115,15 +115,38 @@ const loadHome = () => {
     });
     startingCell = [];
   });
+  travel.addEventListener("click", () => {
+
+    if (startingCell.length > 0 && destinationCell.length > 0) {
+      const moves = knightMoves(startingCell, destinationCell);
+
+      if (!moves) {
+        toastr.error("Could not find a path — try different squares");
+        return;
+      }
+      moves.forEach((square, i) => {
+        setTimeout(() => {
+          const [row, col] = square;
+          if (i > 0) {
+            const [prevRow, prevCol] = moves[i - 1];
+            const prevCell = document.querySelector(
+              `[data-row="${prevRow}"][data-col="${prevCol}"]`,
+            );
+            if (prevCell) prevCell.classList.remove("select");
+          }
+          const cell = document.querySelector(
+            `[data-row="${row}"][data-col="${col}"]`,
+          );
+          if (cell) cell.classList.add("select");
+        }, i * 500);
+      });
+
+      document.querySelector(".destination").style.removeProperty('background-color')
+      document.querySelector(".destination").style.color = "green";
+    }
+  });
 
   createGrid();
-  travel.addEventListener("click",() =>{
-   moves =[knightMoves(startingCell,destinationCell)]
-  })
-  const movement= () =>{
-    
-  }
 };
-
 
 export default loadHome;
