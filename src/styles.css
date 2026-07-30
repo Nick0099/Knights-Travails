@@ -145,21 +145,43 @@ footer {
   background-color: white;
 }
 .black {
-  background-color: black;
+  background-color: rgb(107, 107, 107);
 }
+
 .select.white {
-  background-image: url('../src/img/black_knight.png');
+  background-image: url("../src/img/black_knight.png");
   background-size: 70%;
   background-repeat: no-repeat;
   background-position: center;
+  color: rgb(20, 120, 40) !important;
 }
 .select.black {
-  background-image: url('../src/img/white_knight.png');
+  background-image: url("../src/img/black_knight.png");
   background-size: 70%;
   background-repeat: no-repeat;
   background-position: center;
+  color: rgb(181, 250, 116) !important;
 }
-.destination{
+.select {
+  color: rgb(20, 140, 40) !important;
+  position: relative;
+}
+button.select {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 2px 4px;
+}
+.destination {
   background-color: red;
   opacity: 0.5;
+}
+.visited {
+  color: rgb(20, 140, 40) !important;
+}
+.visited.white {
+  color: rgb(20, 120, 40) !important;
+}
+.visited.black {
+  color: rgb(181, 250, 116) !important;
 }

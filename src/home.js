@@ -41,9 +41,11 @@ const loadHome = () => {
     showMethod: "fadeIn",
     hideMethod: "fadeOut",
   };
+
   let count = 0;
   let startingCell = [];
   let destinationCell = [];
+
   start.addEventListener("click", () => {
     toastr.info("Click on any one of the squares to place the knight");
     count = 1;
@@ -61,15 +63,18 @@ const loadHome = () => {
         const strt = document.querySelector(
           `[data-row="${startingCell[0]}"][data-col="${startingCell[1]}"]`,
         );
-        strt.classList.remove("select");
+        if (strt) strt.classList.remove("select");
         startingCell = [];
       }
       cell.classList.add("select");
-      startingCell.push(parseInt(cell.dataset.row), parseInt(cell.dataset.col));
+      startingCell.push(
+        parseInt(cell.dataset.row, 10),
+        parseInt(cell.dataset.col, 10),
+      );
     } else if (count == 2) {
       if (
-        startingCell[0] == parseInt(cell.dataset.row) &&
-        startingCell[1] == parseInt(cell.dataset.col)
+        startingCell[0] == parseInt(cell.dataset.row, 10) &&
+        startingCell[1] == parseInt(cell.dataset.col, 10)
       ) {
         toastr.error("Choose unoccupied cell");
       } else {
@@ -77,13 +82,13 @@ const loadHome = () => {
           const end = document.querySelector(
             `[data-row="${destinationCell[0]}"][data-col="${destinationCell[1]}"]`,
           );
-          end.classList.remove("destination");
+          if (end) end.classList.remove("destination");
           destinationCell = [];
         }
         cell.classList.add("destination");
         destinationCell.push(
-          parseInt(cell.dataset.row),
-          parseInt(cell.dataset.col),
+          parseInt(cell.dataset.row, 10),
+          parseInt(cell.dataset.col, 10),
         );
       }
     }
@@ -108,41 +113,71 @@ const loadHome = () => {
     }
   };
 
-  clear.addEventListener("click", () => {
+  // pulled out into its own function since both "clear" and "travel" need to
+  // wipe the board back to blank before doing their own thing
+  const resetBoard = () => {
     document.querySelectorAll(".grid-cell").forEach((cell) => {
-      cell.classList.remove("select");
-      cell.classList.remove("destination");
+      cell.classList.remove("select", "destination", "visited");
+      cell.innerHTML = "";
+      cell.style.removeProperty("background-color");
     });
-    startingCell = [];
-  });
-  travel.addEventListener("click", () => {
+  };
 
+  clear.addEventListener("click", () => {
+    resetBoard();
+    startingCell = [];
+    destinationCell = [];
+    destination.style.removeProperty("color");
+  });
+
+  travel.addEventListener("click", () => {
     if (startingCell.length > 0 && destinationCell.length > 0) {
       const moves = knightMoves(startingCell, destinationCell);
 
+      console.log("BFS returned:", moves);
+      // guard against a null path so .forEach doesn't crash
       if (!moves) {
         toastr.error("Could not find a path — try different squares");
         return;
       }
+
+      resetBoard(); // wipe any leftovers from a previous travel() run before animating
+
       moves.forEach((square, i) => {
         setTimeout(() => {
           const [row, col] = square;
+
+          // mark the previous square as "visited" (keeps its number green)
+          // before moving the knight/highlight onto the new square
           if (i > 0) {
             const [prevRow, prevCol] = moves[i - 1];
             const prevCell = document.querySelector(
               `[data-row="${prevRow}"][data-col="${prevCol}"]`,
             );
-            if (prevCell) prevCell.classList.remove("select");
+            if (prevCell) {
+              prevCell.classList.remove("select");
+              prevCell.classList.add("visited");
+            }
           }
+
           const cell = document.querySelector(
             `[data-row="${row}"][data-col="${col}"]`,
           );
-          if (cell) cell.classList.add("select");
+          if (cell) {
+            cell.classList.add("select");
+            cell.innerHTML = `${i + 1}`;
+          }
+
+          // only turn the destination green once the knight actually lands there
+          if (i === moves.length - 1) {
+            const destCell = document.querySelector(".destination");
+            if (destCell) {
+              destCell.style.removeProperty("background-color");
+              destCell.style.backgroundColor = "green";
+            }
+          }
         }, i * 500);
       });
-
-      document.querySelector(".destination").style.removeProperty('background-color')
-      document.querySelector(".destination").style.color = "green";
     }
   });
 
